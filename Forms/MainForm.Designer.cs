@@ -3,6 +3,9 @@ using Microsoft.Azure.ServiceBusExplorer.Helpers;
 
 namespace Microsoft.Azure.ServiceBusExplorer.Forms
 {
+    using System.Drawing;
+    using System.ServiceModel.Channels;
+
     partial class MainForm
     {
         /// <summary>
@@ -131,6 +134,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
             this.subReceiveMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subscriptionReceiveDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subReceiveToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.subscriptionPurgeMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subscriptionPurgeDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -173,6 +177,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.toolStripSeparator31 = new System.Windows.Forms.ToolStripSeparator();
             this.queueReceiveMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queueReceiveDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queueReceiveTransferDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queueReceiveToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.queuePurgeMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queuePurgeDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -318,8 +323,6 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.toolStripSeparator69 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripMenuItem();
-            this.queueReceiveTransferDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -562,7 +565,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             // panelTreeView
             // 
             this.panelTreeView.AutoScroll = true;
-            this.panelTreeView.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelTreeView.BackColor = System.Drawing.SystemColors.Window;
             this.panelTreeView.Controls.Add(this.serviceBusTreeView);
             this.panelTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTreeView.ForeColor = System.Drawing.SystemColors.Window;
@@ -582,6 +585,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             // 
             // serviceBusTreeView
             // 
+            this.serviceBusTreeView.BackColor = System.Drawing.SystemColors.Window;
             this.serviceBusTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.serviceBusTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serviceBusTreeView.ImageIndex = 0;
@@ -1097,7 +1101,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.getSubscriptionMessageSessionsSeparator,
             this.getSubscriptionMessageSessionsMenuItem});
             this.subscriptionContextMenuStrip.Name = "subscriptionContextMenuStrip";
-            this.subscriptionContextMenuStrip.Size = new System.Drawing.Size(309, 448);
+            this.subscriptionContextMenuStrip.Size = new System.Drawing.Size(309, 426);
             // 
             // removeSubscriptionMenuItem
             // 
@@ -1232,6 +1236,12 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.subscriptionReceiveDeadletterQueueMessagesMenuItem.Text = "Receive Deadletter Queue Messages";
             this.subscriptionReceiveDeadletterQueueMessagesMenuItem.ToolTipText = "Receive messages from the deadletter queue.";
             this.subscriptionReceiveDeadletterQueueMessagesMenuItem.Click += new System.EventHandler(this.receiveMessages_Click);
+            // 
+            // subscriptionReceiveTransferDeadletterQueueMessagesMenuItem
+            // 
+            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem.Name = "subscriptionReceiveTransferDeadletterQueueMessagesMenuItem";
+            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem.Text = "Receive Transfer Deadletter Queue Messages";
             // 
             // subReceiveToolStripSeparator
             // 
@@ -1565,6 +1575,13 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.queueReceiveDeadletterQueueMessagesMenuItem.Text = "Receive Deadletter Queue Messages";
             this.queueReceiveDeadletterQueueMessagesMenuItem.ToolTipText = "Receive messages from the deadletter queue.";
             this.queueReceiveDeadletterQueueMessagesMenuItem.Click += new System.EventHandler(this.receiveMessages_Click);
+            // 
+            // queueReceiveTransferDeadletterQueueMessagesMenuItem
+            // 
+            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Name = "queueReceiveTransferDeadletterQueueMessagesMenuItem";
+            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Text = "Receive Transfer Deadletter Queue Messages";
+            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Click += new System.EventHandler(this.receiveMessages_Click);
             // 
             // queueReceiveToolStripSeparator
             // 
@@ -2703,19 +2720,6 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.toolStripMenuItem28.Text = "Test Relay In MDI Mode";
             this.toolStripMenuItem28.ToolTipText = "Test the current relay in MDI mode.";
             this.toolStripMenuItem28.Click += new System.EventHandler(this.testEntityInMDIMode_Click);
-            // 
-            // queueReceiveTransferDeadletterQueueMessagesMenuItem
-            // 
-            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Name = "queueReceiveTransferDeadletterQueueMessagesMenuItem";
-            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Text = "Receive Transfer Deadletter Queue Messages";
-            this.queueReceiveTransferDeadletterQueueMessagesMenuItem.Click += new System.EventHandler(this.receiveMessages_Click);
-            // 
-            // subscriptionReceiveTransferDeadletterQueueMessagesMenuItem
-            // 
-            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem.Name = "subscriptionReceiveTransferDeadletterQueueMessagesMenuItem";
-            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.subscriptionReceiveTransferDeadletterQueueMessagesMenuItem.Text = "Receive Transfer Deadletter Queue Messages";
             // 
             // MainForm
             // 

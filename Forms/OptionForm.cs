@@ -50,8 +50,8 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
                           string label,
                           string messageFile,
                           string messageText,
-                          decimal logFontSize, 
-                          decimal treeViewFontSize, 
+                          decimal logFontSize,
+                          decimal treeViewFontSize,
                           int retryCount,
                           int retryTimeout,
                           int receiveTimeout,
@@ -65,6 +65,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
                           bool saveMessageToFile,
                           bool savePropertiesToFile,
                           bool saveCheckpointsToFile,
+                          bool colorCodeEnvironment,
                           IEnumerable<string> entities,
                           IEnumerable<string> selectedEntities)
         {
@@ -83,7 +84,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             ServerTimeout = serverTimeout;
             SenderThinkTime = senderThinkTime;
             ReceiverThinkTime = receiverThinkTime;
-            MonitorRefreshInterval = monitorRefreshInterval;            
+            MonitorRefreshInterval = monitorRefreshInterval;
             PrefetchCount = prefetchCount;
             TopCount = top;
 
@@ -107,6 +108,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             savePropertiesToFileCheckBox.Checked = savePropertiesToFile;
             saveMessageToFileCheckBox.Checked = saveMessageToFile;
             saveCheckpointsToFileCheckBox.Checked = saveCheckpointsToFile;
+            colorCodeEnvironmentCheckBox.Checked = colorCodeEnvironment;
 
             var connectivityMode = ServiceBusHelper.ConnectivityMode;
             cboConnectivityMode.DataSource = Enum.GetValues(typeof(ConnectivityMode));
@@ -120,6 +122,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             SaveMessageToFile = saveMessageToFile;
             SavePropertiesToFile = savePropertiesToFile;
             SaveCheckpointsToFile = saveCheckpointsToFile;
+            ColorCodeEnvironment = colorCodeEnvironment;
 
             foreach (var item in entities)
             {
@@ -148,6 +151,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         public bool SaveMessageToFile { get; private set; }
         public bool SavePropertiesToFile { get; private set; }
         public bool SaveCheckpointsToFile { get; private set; }
+        public bool ColorCodeEnvironment { get; private set; }
         public string CertificateThumbprint { get; private set; }
         public string SubscriptionId { get; private set; }
         public string Label { get; private set; }
@@ -210,7 +214,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             ServerTimeout = 3;
             receiveTimeoutNumericUpDown.Value = ReceiveTimeout;
             serverTimeoutNumericUpDown.Value = ServerTimeout;
-            
+
             PrefetchCount = 0;
             TopCount = 10;
             prefetchCountNumericUpDown.Value = PrefetchCount;
@@ -225,7 +229,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             monitorRefreshIntervalNumericUpDown.Value = MonitorRefreshInterval;
             cboConnectivityMode.SelectedItem = ConnectivityMode.AutoDetect;
             cboEncodingType.SelectedItem = EncodingType.ASCII;
-            
+
             SaveMessageToFile = true;
             SavePropertiesToFile = true;
             SaveCheckpointsToFile = true;
@@ -284,6 +288,11 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             SavePropertiesToFile = savePropertiesToFileCheckBox.Checked;
         }
 
+        private void colorCodeEnvironmentCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ColorCodeEnvironment = colorCodeEnvironmentCheckBox.Checked;
+        }
+
         private void saveCheckpointsToFileCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             SaveCheckpointsToFile = saveCheckpointsToFileCheckBox.Checked;
@@ -306,7 +315,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
                 control.ForeColor = SystemColors.ControlText;
             }
         }
-        
+
         private void mainPanel_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawRectangle(new Pen(SystemColors.ActiveBorder, 1),
@@ -573,6 +582,14 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             {
                 configuration.AppSettings.Settings[ConfigurationParameters.SelectedEntitiesParameter].Value = cboSelectedEntities.Text;
             }
+            if (configuration.AppSettings.Settings[ConfigurationParameters.ColorCodeEnvironment] == null)
+            {
+                configuration.AppSettings.Settings.Add(ConfigurationParameters.ColorCodeEnvironment, ColorCodeEnvironment.ToString());
+            }
+            else
+            {
+                configuration.AppSettings.Settings[ConfigurationParameters.ColorCodeEnvironment].Value = ColorCodeEnvironment.ToString();
+            }
             configuration.Save(ConfigurationSaveMode.Minimal);
         }
 
@@ -591,9 +608,9 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         {
             if (cboEncodingType.SelectedItem is EncodingType)
             {
-                ServiceBusHelper.EncodingType = (EncodingType) cboEncodingType.SelectedItem;
+                ServiceBusHelper.EncodingType = (EncodingType)cboEncodingType.SelectedItem;
             }
         }
         #endregion
     }
-} 
+}

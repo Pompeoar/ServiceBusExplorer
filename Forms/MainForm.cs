@@ -281,6 +281,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         private bool saveMessageToFile = true;
         private bool savePropertiesToFile = true;
         private bool saveCheckpointsToFile = true;
+        private bool colorCodeEnvironment = true;
         private readonly List<Tuple<string, string>> fileNames = new List<Tuple<string, string>>();
         private readonly string argumentName;
         private readonly string argumentValue;
@@ -372,6 +373,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
                                                    saveMessageToFile,
                                                    savePropertiesToFile,
                                                    saveCheckpointsToFile,
+                                                   colorCodeEnvironment,
                                                    entities,
                                                    selectedEntites))
             {
@@ -404,6 +406,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
                 saveMessageToFile = optionForm.SaveMessageToFile;
                 savePropertiesToFile = optionForm.SavePropertiesToFile;
                 saveCheckpointsToFile = optionForm.SaveCheckpointsToFile;
+                colorCodeEnvironment = optionForm.ColorCodeEnvironment;
                 selectedEntites = optionForm.SelectedEntities;
             }
         }
@@ -843,6 +846,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         {
             try
             {
+
                 serviceBusTreeView.SuspendDrawing();
                 serviceBusTreeView.SuspendLayout();
                 // QueueDescription Entity
@@ -3865,6 +3869,11 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             {
                 bool.TryParse(parameter, out saveCheckpointsToFile);
             }
+            parameter = ConfigurationManager.AppSettings[ConfigurationParameters.ColorCodeEnvironment];
+            if (!string.IsNullOrWhiteSpace(parameter))
+            {
+                bool.TryParse(parameter, out colorCodeEnvironment);
+            }
             var scheme = ConfigurationManager.AppSettings[ConfigurationParameters.SchemeParameter];
             if (!string.IsNullOrWhiteSpace(scheme))
             {
@@ -4849,7 +4858,29 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
                     rootNode.Expand();
                     if (entityType != EntityType.All)
                         return;
-
+                    if (colorCodeEnvironment)
+                    {
+                        Action<string> updateColor = (environment) =>
+                        {
+                            switch (environment)
+                            {
+                                case "prod":
+                                case "prd":
+                                    this.serviceBusTreeView.BackColor = Color.IndianRed;
+                                    break;
+                                default:
+                                    this.serviceBusTreeView.BackColor = Color.Goldenrod;
+                                    break;
+                            }
+                        };
+                        
+                        List<string> environments = new List<string>() { "prod", "prd", "ppe"};
+                        foreach (var environment in environments)
+                        {
+                            if (rootNode.Text.Contains(environment))
+                                updateColor(environment);
+                        }
+                    }
                     serviceBusTreeView.SelectedNode = rootNode;
                     serviceBusTreeView.SelectedNode.EnsureVisible();
                     HandleNodeMouseClick(rootNode);
@@ -4978,7 +5009,6 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         private void ShowQueue(QueueDescription queue, string path)
         {
             HandleQueueControl queueControl = null;
-
             try
             {
                 panelMain.SuspendDrawing();

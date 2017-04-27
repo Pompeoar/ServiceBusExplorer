@@ -53,14 +53,15 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            CheckBoxProperties checkBoxProperties1 = new CheckBoxProperties();
+            Microsoft.Azure.ServiceBusExplorer.Controls.CheckBoxProperties checkBoxProperties2 = new Microsoft.Azure.ServiceBusExplorer.Controls.CheckBoxProperties();
+            Microsoft.Azure.ServiceBusExplorer.Controls.CheckBoxProperties checkBoxProperties1 = new Microsoft.Azure.ServiceBusExplorer.Controls.CheckBoxProperties();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionForm));
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.lblSaveCheckpointsOnExit = new System.Windows.Forms.Label();
             this.saveCheckpointsToFileCheckBox = new System.Windows.Forms.CheckBox();
-            this.cboSelectedEntities = new CheckBoxComboBox();
+            this.cboSelectedEntities = new Microsoft.Azure.ServiceBusExplorer.Controls.CheckBoxComboBox();
             this.lblSelectedEntities = new System.Windows.Forms.Label();
             this.lblShowMessageCount = new System.Windows.Forms.Label();
             this.showMessageCountCheckBox = new System.Windows.Forms.CheckBox();
@@ -107,6 +108,8 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.lblLogFontSize = new System.Windows.Forms.Label();
             this.btnDefault = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.lblColorCodeEnvironment = new System.Windows.Forms.Label();
+            this.colorCodeEnvironmentCheckBox = new System.Windows.Forms.CheckBox();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.monitorRefreshIntervalNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiverThinkTimeNumericUpDown)).BeginInit();
@@ -129,7 +132,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.btnOk.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOk.Location = new System.Drawing.Point(392, 520);
+            this.btnOk.Location = new System.Drawing.Point(392, 551);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(72, 24);
             this.btnOk.TabIndex = 2;
@@ -147,7 +150,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(472, 520);
+            this.btnCancel.Location = new System.Drawing.Point(472, 551);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(72, 24);
             this.btnCancel.TabIndex = 3;
@@ -163,6 +166,8 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.mainPanel.Controls.Add(this.colorCodeEnvironmentCheckBox);
+            this.mainPanel.Controls.Add(this.lblColorCodeEnvironment);
             this.mainPanel.Controls.Add(this.lblSaveCheckpointsOnExit);
             this.mainPanel.Controls.Add(this.saveCheckpointsToFileCheckBox);
             this.mainPanel.Controls.Add(this.cboSelectedEntities);
@@ -212,7 +217,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.mainPanel.Controls.Add(this.lblLogFontSize);
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(560, 505);
+            this.mainPanel.Size = new System.Drawing.Size(560, 536);
             this.mainPanel.TabIndex = 33;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
@@ -240,8 +245,8 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             // 
             // cboSelectedEntities
             // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboSelectedEntities.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cboSelectedEntities.CheckBoxProperties = checkBoxProperties2;
             this.cboSelectedEntities.DisplayMemberSingleItem = "";
             this.cboSelectedEntities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSelectedEntities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -806,7 +811,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.btnDefault.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnDefault.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDefault.Location = new System.Drawing.Point(312, 520);
+            this.btnDefault.Location = new System.Drawing.Point(312, 551);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(72, 24);
             this.btnDefault.TabIndex = 1;
@@ -824,7 +829,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.btnSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Location = new System.Drawing.Point(232, 520);
+            this.btnSave.Location = new System.Drawing.Point(232, 551);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(72, 24);
             this.btnSave.TabIndex = 0;
@@ -832,12 +837,34 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // lblColorCodeEnvironment
+            // 
+            this.lblColorCodeEnvironment.AutoSize = true;
+            this.lblColorCodeEnvironment.BackColor = System.Drawing.SystemColors.Window;
+            this.lblColorCodeEnvironment.Location = new System.Drawing.Point(8, 500);
+            this.lblColorCodeEnvironment.Name = "lblColorCodeEnvironment";
+            this.lblColorCodeEnvironment.Size = new System.Drawing.Size(124, 13);
+            this.lblColorCodeEnvironment.TabIndex = 88;
+            this.lblColorCodeEnvironment.Text = "Color Code Environment:";
+            // 
+            // colorCodeEnvironmentCheckBox
+            // 
+            this.colorCodeEnvironmentCheckBox.AutoSize = true;
+            this.colorCodeEnvironmentCheckBox.Checked = true;
+            this.colorCodeEnvironmentCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.colorCodeEnvironmentCheckBox.Location = new System.Drawing.Point(184, 500);
+            this.colorCodeEnvironmentCheckBox.Name = "colorCodeEnvironmentCheckBox";
+            this.colorCodeEnvironmentCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.colorCodeEnvironmentCheckBox.TabIndex = 90;
+            this.colorCodeEnvironmentCheckBox.UseVisualStyleBackColor = true;
+            this.colorCodeEnvironmentCheckBox.CheckedChanged += new System.EventHandler(this.colorCodeEnvironmentCheckBox_CheckedChanged);
+            // 
             // OptionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(560, 553);
+            this.ClientSize = new System.Drawing.Size(560, 584);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDefault);
             this.Controls.Add(this.mainPanel);
@@ -923,5 +950,7 @@ namespace Microsoft.Azure.ServiceBusExplorer.Forms
         private CheckBoxComboBox cboSelectedEntities;
         private System.Windows.Forms.Label lblSaveCheckpointsOnExit;
         private System.Windows.Forms.CheckBox saveCheckpointsToFileCheckBox;
+        private System.Windows.Forms.Label lblColorCodeEnvironment;
+        private System.Windows.Forms.CheckBox colorCodeEnvironmentCheckBox;
     }
 }
